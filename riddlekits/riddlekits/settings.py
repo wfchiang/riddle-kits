@@ -54,7 +54,7 @@ ROOT_URLCONF = 'riddlekits.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['riddlekits/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
