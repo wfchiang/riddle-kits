@@ -2,11 +2,70 @@
 <head>
     <title>Riddle Kits</title>
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css">
-    <script src="main.js"></script> -->
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css"> --> 
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script>
+        var riddleKitsApp = angular.module('riddleKitsApp', []);
+        riddleKitsApp.controller('riddleKitsCtrl', function($http, $scope){
+            $scope.init = function() {
+                $scope.intarithQuiz = []; 
+                $scope.intarithQ = "Q"; 
+                $scope.testm = "test"; 
+            }; 
+            
+            // Integer Arith
+            $scope.getIntarith = function () {
+                $http({
+                    method: 'POST', 
+                    url: 'http://127.0.0.1:8000/intarith', 
+                    data: {
+                        "max_int": 10, 
+                        "quiz_length": 20
+                    }, 
+                    headers: {}
+                }
+                ).then ( 
+                    function success (http_resp) {
+                        console.info("> [intarith] get one question-answer"); 
+                        let intarith_resp = http_resp.data; 
+                        $scope.intarithQ = intarith_resp.str_question;
+                        $scope.intarithA = intarith_resp.str_answer; 
+                        console.info("> " + $scope.intarithQ); 
+                    }, 
+                    function error (http_resp) {
+                        console.info("intarith error"); 
+                    }
+                ); 
+            }; 
+        }); 
+    </script>
 </head>
 <body>
-    <h1>Riddle Kits</h1> 
-    <p>A web app helps you create riddles for church activities</p>
+    <div ng-app="riddleKitsApp" ng-controller="riddleKitsCtrl">
+        <div>
+            <h1>Riddle Kits</h1> 
+            <p>A web app helps you create riddles for church activities</p>
+            <hr/>
+            <br/>
+        </div>
+        <div>
+            <h2>Integer Arithmetic</h2>
+            <table>
+                <tr>
+                    <td>
+                        <table>
+                            <tr><td>Question</td><td>Answer</td></tr>
+                            <tr><td>{{intarithQ}}</td><td>{{intarithA}}</td></tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td><button ng-click="getIntarith()">Get</button></td>
+                </tr>
+            </table>
+            <hr/>
+            <br/>
+        </div>
+    </div>
 </body>
 </html>
