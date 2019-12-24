@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-import views
+from riddlekits import views
 
 urlpatterns = [
     url('intarith', views.intarith),

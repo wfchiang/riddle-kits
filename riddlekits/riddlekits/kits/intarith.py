@@ -166,7 +166,7 @@ class Clause (object):
         elif (self.opt == '/'):
             if (new_me.isGood()): 
                 return new_me 
-            candidates = range(1, max_int+1)
+            candidates = list(range(1, max_int+1))
             random.shuffle(candidates)
             for c in candidates: 
                 new_me.rhs = Clause(None, c, None) 

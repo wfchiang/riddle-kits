@@ -3,15 +3,12 @@
     <title>Riddle Kits</title>
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="main.css"> --> 
+    <meta charset="utf-8">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-    <script>
+    <script charset="utf-8">
         var riddleKitsApp = angular.module('riddleKitsApp', []);
         riddleKitsApp.controller('riddleKitsCtrl', function($http, $scope){
-            $scope.init = function() {
-                $scope.intarithQuiz = []; 
-                $scope.intarithQ = "Q"; 
-                $scope.testm = "test"; 
-            }; 
+            $scope.intarithQuiz = [];  
             
             // Integer Arith
             $scope.getIntarith = function () {
@@ -27,10 +24,8 @@
                 ).then ( 
                     function success (http_resp) {
                         console.info("> [intarith] get one question-answer"); 
-                        let intarith_resp = http_resp.data; 
-                        $scope.intarithQ = intarith_resp.str_question;
-                        $scope.intarithA = intarith_resp.str_answer; 
-                        console.info("> " + $scope.intarithQ); 
+                        let intarith_resp = http_resp.data;
+                        $scope.intarithQuiz.push(intarith_resp); 
                     }, 
                     function error (http_resp) {
                         console.info("intarith error"); 
@@ -55,7 +50,12 @@
                     <td>
                         <table>
                             <tr><td>Question</td><td>Answer</td></tr>
-                            <tr><td>{{intarithQ}}</td><td>{{intarithA}}</td></tr>
+                            {% verbatim %}
+                            <tr ng-repeat="(iaK, iaV) in intarithQuiz">
+                                <td>{{iaV.str_question}}</td>
+                                <td>{{iaV.str_answer}}</td>
+                            </tr>
+                            {% endverbatim %}
                         </table>
                     </td>
                 </tr>
