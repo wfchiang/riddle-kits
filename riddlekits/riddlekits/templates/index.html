@@ -9,14 +9,16 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <script charset="utf-8">
         var riddleKitsApp = angular.module('riddleKitsApp', []);
-        riddleKitsApp.controller('riddleKitsCtrl', function($http, $scope){
+        riddleKitsApp.controller('riddleKitsCtrl', function($http, $location, $scope){
             $scope.intarithQuiz = [];  
             
             // Integer Arith
             $scope.getIntarith = function () {
+                url_intarith = String($location.protocol())+'://'+String($location.host())+':'+String($location.port())+'/intarith'; 
+                console.info("> [intarith] make an intarith request to URL: " + url_intarith);
                 $http({
                     method: 'POST', 
-                    url: 'http://127.0.0.1:8000/intarith', 
+                    url: url_intarith, 
                     data: {
                         "max_int": 10, 
                         "quiz_length": 20
