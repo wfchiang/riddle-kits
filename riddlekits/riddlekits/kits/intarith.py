@@ -25,7 +25,8 @@ class QuizResponse (object):
         string_quiz = string_quiz.replace('-', ' - ')
         string_quiz = string_quiz.replace('*', ' x ')
         string_quiz = string_quiz.replace('/', ' / ')
-        string_quiz = string_quiz.replace('/', '\xc3\xb7')
+        # string_quiz = string_quiz.replace('/', '\xc3\xb7')
+        string_quiz = string_quiz.replace('/', '\u00F7')
         return string_quiz
     
     def __str__ (self): 

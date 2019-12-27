@@ -25,6 +25,8 @@
                     function success (http_resp) {
                         console.info("> [intarith] get one question-answer"); 
                         let intarith_resp = http_resp.data;
+                        decoded_str_question = intarith_resp.str_question.replace(/\\u00F7/g, '\u00F7'); 
+                        intarith_resp.str_question = decoded_str_question; 
                         $scope.intarithQuiz.push(intarith_resp); 
                     }, 
                     function error (http_resp) {
@@ -47,6 +49,9 @@
             <h2>Integer Arithmetic</h2>
             <table>
                 <tr>
+                    <td><button ng-click="getIntarith()">Get</button></td>
+                </tr>
+                <tr>
                     <td>
                         <table>
                             <tr><td>Question</td><td>Answer</td></tr>
@@ -58,9 +63,6 @@
                             {% endverbatim %}
                         </table>
                     </td>
-                </tr>
-                <tr>
-                    <td><button ng-click="getIntarith()">Get</button></td>
                 </tr>
             </table>
             <hr/>
