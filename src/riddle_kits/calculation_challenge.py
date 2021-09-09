@@ -9,7 +9,7 @@ import random
 OPTS = {
     '+': (lambda x,y: (x+y)), 
     '-': (lambda x,y: (x-y)), 
-    '*': (lambda x,y: (x*y)), 
+    'x': (lambda x,y: (x*y)), 
     '/': (lambda x,y: int(x/y))
 }
 
@@ -67,11 +67,11 @@ def _eval_mul_div (quiz :List[Union[str, int]]):
             return None 
         return head + tail 
 
-    elif (opt in ['*']): 
-        quiz = [OPTS['*'](lhs, rhs)] + quiz[3:]
+    elif (opt == 'x'): 
+        quiz = [OPTS['x'](lhs, rhs)] + quiz[3:]
         return _eval_mul_div(quiz)
 
-    elif (opt in ['/']): 
+    elif (opt == '/'): 
         if (lhs % rhs != 0): 
             return None 
         quiz = [OPTS['/'](lhs, rhs)] + quiz[3:]
@@ -143,6 +143,9 @@ def main (
     for i in range(0, n_questions): 
         quiz = list(map(lambda x: str(x), questions[i]))
         print('Challenge ({}):  '.format(i+1) + ' '.join(quiz))
+        print('')
+        print('')
+        print('')
         print('')
 
     print('')
